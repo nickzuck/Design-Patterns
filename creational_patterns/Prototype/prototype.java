@@ -20,7 +20,7 @@ enum Topping {
 	}
 };
 
-abstract class CookieCutter {
+abstract class CookieCutter{
 	private int sides ; 
 	private int size ; 
 	private Topping toppings ; 
@@ -32,16 +32,13 @@ abstract class CookieCutter {
 		this.toppings = topping;
 	}
 
-	// // The prototype method which copies cookies to modify it later on
-	// public CookieCutter clone(CookieCutter source){
-	// 	try {
-	// 		return (CookieCutter) super.clone() ;	
-	// 	} catch (CloneNotSupportedException  e) {
-	// 		throw new AssertionError ("Clone method not supported for this type") ;
-	// 	}
-		
-	// }
+	// The prototype method which copies cookies to modify it later on
+	public abstract CookieCutter clone() ;
 
+
+	public int getSides() { return sides; }
+    public int getSize() { return size; }
+    public Topping getToppings() { return toppings; }
 
 	public void setSide(int sides){
 		this.sides = sides ;
@@ -58,6 +55,8 @@ abstract class CookieCutter {
 	public void display() {
 		System.out.println("Cookie [Sides=" + sides + ", Size=" + size + ", Topping=" + toppings + "]");
 	}
+
+
 }
 
 class CashewCookie extends CookieCutter {
@@ -66,7 +65,7 @@ class CashewCookie extends CookieCutter {
 	}
 
 	CashewCookie (CashewCookie source){
-		super(0, 5, Topping.CASHEW) ;
+		super(source.getSides(), source.getSize(), source.getToppings()) ;
 	}
 
 	public CashewCookie clone() {
@@ -82,7 +81,7 @@ class AlmondCookie extends CookieCutter {
 	}
 
 	AlmondCookie(AlmondCookie source) {
-		super(6, 4, Topping.ALMONDS) ;
+		super(source.getSides(), source.getSize(), source.getToppings()) ;
 	}
 
 	public AlmondCookie clone() {
