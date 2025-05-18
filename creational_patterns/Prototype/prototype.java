@@ -32,15 +32,15 @@ abstract class CookieCutter {
 		this.toppings = topping;
 	}
 
-	// The prototype method which copies cookies to modify it later on
-	public CookieCutter clone(CookieCutter source){
-		try {
-			return (CookieCutter) super.clone() ;	
-		} catch (CloneNotSupportedException  e) {
-			throw new AssertionError ("Clone method not supported for this type") ;
-		}
+	// // The prototype method which copies cookies to modify it later on
+	// public CookieCutter clone(CookieCutter source){
+	// 	try {
+	// 		return (CookieCutter) super.clone() ;	
+	// 	} catch (CloneNotSupportedException  e) {
+	// 		throw new AssertionError ("Clone method not supported for this type") ;
+	// 	}
 		
-	}
+	// }
 
 
 	public void setSide(int sides){
