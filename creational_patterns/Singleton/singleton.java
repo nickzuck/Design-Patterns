@@ -3,31 +3,31 @@ import java.util.concurrent.locks.ReentrantLock;
 
 class DBConnection {
 
-	private static boolean instanceCreated =  false ;
+	private static DBConnection instance =  null ;
 	static ReentrantLock mutex = new ReentrantLock() ; 
 
 
 	// If I just add all the content of getInstance here, the locking won't be effecting
 	// so creating this as private constructor so noone can call this constructor
 	private DBConnection(){
-		System.out.println("Trying to create the db object") ;
+		System.out.println("Creating new db object") ;
 	}
 
 	// Singleton function ensures that only one object is created at a time
-	public static void open(){
-		if (!instanceCreated) {
+	public static DBConnection open(){
+		if (instance == null) {
 			// Take lock to start creating the object
 			mutex.lock() ; 
 			// Ensure that the instance hasn't yet been initialized yet by another thread
 			// while this one has been waiting forr the lock's release
-			if(!instanceCreated){
-				System.out.println("Opening connection for database with username and password") ;
-				instanceCreated = true ;
+			if(instance == null){
+				instance = new DBConnection() ;
 				mutex.unlock();
+				return instance ;
 			}
-		} else {
-			System.out.println("No new connection was created") ;
 		}
+		System.out.println("No new object was created, returning already existing object") ;
+		return instance ;
 	}
 }
 
