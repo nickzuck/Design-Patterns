@@ -11,6 +11,7 @@ interface Notification {
     void send() ;
 }
 
+// Concrete Base implementation of Notification
 class BaseNotification implements Notification {
     @Override
     public void send() {
@@ -18,12 +19,24 @@ class BaseNotification implements Notification {
     }
 }
 
-class SlackNotification extends BaseNotification {
-    protected Notification notificationObj;
+abstract class NotificationDecorator implements Notification {
+    protected Notification wrapped;
+
+    public NotificationDecorator(Notification notificationObj) {
+        this.wrapped = notificationObj;
+    }
+
+    @java.lang.Override
+    public void send() {
+        wrapped.send();
+    }
+}
+
+class SlackNotification extends NotificationDecorator {
     private String channel ;
 
     public SlackNotification(Notification notificationObj, String channelName) {
-        this.notificationObj = notificationObj;
+        super(notificationObj);
         this.channel = channelName ;
     }
 
@@ -34,12 +47,11 @@ class SlackNotification extends BaseNotification {
     }
 }
 
-class EmailNotification extends BaseNotification {
-    protected Notification notificationObj;
+class EmailNotification extends NotificationDecorator {
     private String email ;
 
     public EmailNotification(Notification notificationObj, String email) {
-        this.notificationObj = notificationObj;
+        super(notificationObj);
         this.email = email ;
     }
 
@@ -50,12 +62,11 @@ class EmailNotification extends BaseNotification {
     }
 }
 
-class SMSNotification extends BaseNotification {
-    protected Notification notificationObj;
+class SMSNotification extends NotificationDecorator {
     private String mobileNumber ;
 
     public SMSNotification(Notification notificationObj, String number) {
-        this.notificationObj = notificationObj;
+        super(notificationObj);
         this.mobileNumber = number;
     }
 
@@ -66,12 +77,11 @@ class SMSNotification extends BaseNotification {
     }
 }
 
-class FacebookNotification extends BaseNotification {
-    protected Notification notificationObj;
+class FacebookNotification extends NotificationDecorator {
     private String facebookId ;
 
     public FacebookNotification(Notification notificationObj, String fbId) {
-        this.notificationObj = notificationObj;
+        super(notificationObj);
         this.facebookId = fbId;
     }
 
@@ -90,6 +100,7 @@ public class decorator {
                 "slackChannel"
         ) ;
         emailSlackNotif.send();
+        System.out.println("");
 
         // Customer wants to send slack + facebook + sms notification
         Notification fbSlackSMSNotif = new SlackNotification(
