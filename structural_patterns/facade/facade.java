@@ -39,6 +39,9 @@ class BitEncoding {
 
 //NOTE :  Ideally we should return the new video file path from all the classes so that
 // we can return the final video file path from whichever step we want
+
+// IMPROVEMENT : We should ideally not create all the function methods as static methods
+// and inject subsystems 
 class AudioMixing {
 
     public static void mixAudio(String audioPath, VideoFile file){
@@ -64,6 +67,8 @@ class VideoPublisher{
     }
 }
 
+
+// MORE IMPROVEMENT : We can create an abstract class which can be used by both community and premium edition
 // Facade for handling the complex subsystem
 class VideoSoftwareCommunity {
     private VideoFile communityVideo ;
