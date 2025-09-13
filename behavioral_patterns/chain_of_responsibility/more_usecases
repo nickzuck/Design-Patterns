@@ -1,0 +1,21 @@
+Some of the practical scenarios of chain of responsibility are
+1. Customer Support Escalation
+Flow: Customer → Level 1 Agent → Level 2 Agent → Manager → Director.
+
+2. ATM Cash Withdrawal
+Flow: ATM → Check ₹2000 note availability → If not, check ₹500 note availability → If not, check ₹100 note availability.
+
+3. Logging Frameworks
+Flow: Log request → ConsoleLogger → FileLogger → DatabaseLogger.
+
+4. Approval Processes in Companies
+Flow: Expense request → Team Lead → Manager → Director → CFO.
+
+5. Middleware in Web applications
+Flow: Request → Authentication Middleware → Logging Middleware → Compression Middleware → Final Handler.
+
+6. Exception Handling in Programming
+Flow: Code throws an exception → First catch block checks → If not matched, next catch → Finally, global handler.
+
+7. Event handling in GUIs
+Flow: User clicks → Button → Panel → Window → Application.
