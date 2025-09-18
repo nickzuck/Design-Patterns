@@ -52,6 +52,45 @@ class PreOrderTraversal implements Iterator {
     }
 }
 
+class PostOrderTraversal implements Iterator {
+    Stack<TreeNode> stack = new Stack<>() ;
+
+    PostOrderTraversal(TreeNode root){
+        if(root != null){
+            stack.push(root) ;
+            stack.push(root) ;
+        }
+    }
+
+    @Override
+    public boolean hasNext() {
+        return !stack.empty() ;
+    }
+
+    @Override
+    public TreeNode next() {
+        if(!hasNext()){
+            throw new NoSuchElementException() ;
+        }
+
+        TreeNode node = stack.pop() ;
+        if(!stack.empty() && stack.peek() == node){
+            // We are seeing this node for the first time -> push children
+            if(node.right != null){
+                stack.push(node.right) ;
+                stack.push(node.right) ;
+            }
+            if(node.left != null){
+                stack.push(node.left) ;
+                stack.push(node.left) ;
+            }
+            return next() ; // continue untl a node is ready to be returned
+        } else {
+            return node;
+        }
+    }
+}
+
 
 class tree_traversal{
     public static void main(String[] args){
@@ -63,6 +102,13 @@ class tree_traversal{
         while(preOrderItr.hasNext()){
             System.out.println(preOrderItr.next().data) ;
         }
+
+        System.out.println("Doing post order traversal") ;
+        Iterator postOrderItr = new PostOrderTraversal(root) ;
+        while(postOrderItr.hasNext()){
+            System.out.println(postOrderItr.next().data) ;
+        }
+
     }
 
     public static TreeNode createTree() {
