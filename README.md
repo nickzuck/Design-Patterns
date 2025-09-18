@@ -14,3 +14,8 @@ The code is written and tested using Java 17
 ### Structural : 
 - Flyweight 
 - Proxy
+
+
+## License
+This project is licensed under a Non-Commercial License.
+See the [LICENSE](./LICENSE) file for details.
