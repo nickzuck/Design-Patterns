@@ -43,10 +43,10 @@ class PreOrderTraversal implements Iterator {
         }
         TreeNode node = stack.pop() ;
         if(node .right != null){
-            stack.push(node .right) ;
+            stack.push(node.right) ;
         }
         if(node .left != null){
-            stack.push(node .left) ;
+            stack.push(node.left) ;
         }
         return node ;
     }
@@ -91,6 +91,39 @@ class PostOrderTraversal implements Iterator {
     }
 }
 
+class InorderTraversal implements Iterator{
+    Stack<TreeNode> stack = new Stack<>() ;
+    TreeNode current = null ;
+
+    InorderTraversal(TreeNode root){
+        this.current = root ;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return !stack.empty() || current != null;
+    }
+
+    @Override
+    public TreeNode next(){
+        if (!hasNext()) {
+            throw new NoSuchElementException() ;
+        }
+
+        while(current != null){
+            stack.push(current) ;
+            current = current.left ;
+        }
+
+        TreeNode node = stack.pop() ;
+
+        // Move pointer to the right subtree
+        current = node.right ;
+
+        return node ;
+    }
+}
+
 
 class tree_traversal{
     public static void main(String[] args){
@@ -100,13 +133,20 @@ class tree_traversal{
 
         System.out.println("Doing pre order traversal") ;
         while(preOrderItr.hasNext()){
-            System.out.println(preOrderItr.next().data) ;
+            System.out.printf("%d ", preOrderItr.next().data) ;
         }
 
-        System.out.println("Doing post order traversal") ;
+        System.out.println("\nDoing post order traversal") ;
         Iterator postOrderItr = new PostOrderTraversal(root) ;
         while(postOrderItr.hasNext()){
-            System.out.println(postOrderItr.next().data) ;
+            System.out.printf("%d ", postOrderItr.next().data) ;
+        }
+
+        System.out.println("\nDoing interorder traversal") ;
+        Iterator inorderItr = new InorderTraversal(root);
+
+        while(inorderItr.hasNext()){
+            System.out.printf("%d ", inorderItr.next().data)  ;
         }
 
     }
